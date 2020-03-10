@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">profileAssistant</string>
+    <string name="M_nameField">Enter First and Last Name</string>
+    <string name="M_emailField">Enter Email</string>
+    <string name="M_phoneField">Enter Phone Number</string>
+    <string name="M_bioField">Enter Bio</string>
+    <string name="M_nameEdit">Edit</string>
+    <string name="M_emailEdit">Edit</string>
+    <string name="M_phoneEdit">Edit</string>
+    <string name="M_bioEdit">Edit</string>
 </resources>
