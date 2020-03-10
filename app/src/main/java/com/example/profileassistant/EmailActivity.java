@@ -1,6 +1,7 @@
 package com.example.profileassistant;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EmailActivity extends AppCompatActivity {
     //Define the variables for send button and text
-    Button send_button;
-    EditText send_text;
+    Button applyButton;
+    EditText email;
+    SharedPreferences pref;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +31,19 @@ public class EmailActivity extends AppCompatActivity {
             }
         });
 
-        send_button = (Button) findViewById(R.id.E_apply);
-        send_text = (EditText) findViewById(R.id.E_editEmail);
+        //set preferences for email entered by user
+        email = (EditText) findViewById(R.id.E_editEmail);
+        applyButton = (Button) findViewById(R.id.E_apply);
+        pref = getSharedPreferences("emails", MODE_PRIVATE);
+        intent = new Intent(EmailActivity.this, MainActivity.class);
 
-        //add the onClickListener in send button
-        //after clicked, the instruction will run
-        send_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v2) {
-                //get the value which the user inputs in EditTExt
-                //and convert to a string
-                String strEmail = send_text.getText().toString();
-                //Create the intent object of this class to MainActivity
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //putExtra method puts the value in the key-value pair
-                intent.putExtra("message_keyEmail", strEmail);
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                String strEmail = email.getText().toString();
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("emailInput", strEmail);
+                editor.commit();
                 startActivity(intent);
             }
         });

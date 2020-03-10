@@ -12,9 +12,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    TextView receiverName;
-    TextView receiverEmail;
-    SharedPreferences prf;
+    TextView receiverName, receiverEmail, receiverPhone;
+    SharedPreferences prf, prfEmail, prfPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         receiverName.setText(prf.getString("messageFirst", "") + " " +
                 prf.getString("messageLast", ""));
 
+        //Receive preferences from EmailActivity and display
+        receiverEmail = (TextView) findViewById(R.id.M_emailField);
+        prfEmail = getSharedPreferences("emails", MODE_PRIVATE);
+        receiverEmail.setText(prfEmail.getString("emailInput", ""));
 
+        //Receive preferences from PhoneActivity and display
+        receiverPhone = (TextView) findViewById(R.id.M_phoneField);
+        prfPhone = getSharedPreferences("phones", MODE_PRIVATE);
+        receiverPhone.setText(prfPhone.getString("phoneInput", ""));
     }
 }
