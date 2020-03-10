@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+    TextView receiverName;
+    TextView receiverEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +54,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(bIntent);
             }
         });
+
+        //logic for receiving name string
+        receiverName = (TextView) findViewById(R.id.M_nameField);
+        //create the getter Intent object
+        Intent intent = getIntent();
+        //receive the value by getStringExtra() method
+        String strFirst = intent.getStringExtra("message_key");
+        String strLast = intent.getStringExtra("message_keyTwo");
+        receiverName.setText(strFirst + " " + strLast);
+
+        //logic for receiving email string
+        receiverEmail = (TextView) findViewById(R.id.M_emailField);
+        //create the getter Intent Object
+        Intent intentEmail = getIntent();
+        //receive the value by getStringExtra() method
+        String strEmail = intentEmail.getStringExtra("message_keyEmail");
+        receiverEmail.setText(strEmail);
     }
 }
