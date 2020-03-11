@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -53,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v4) {
                 Intent bIntent = new Intent(v4.getContext(), BioActivity.class);
                 startActivity(bIntent);
+            }
+        });
+
+        //Use M_photoEdit button to open PhotoActivity
+        ImageButton editPhotoButton = (ImageButton) findViewById(R.id.M_photoEdit);
+        editPhotoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent phIntent = new Intent(arg0.getContext(), PhotoActivity.class);
+                startActivity(phIntent);
             }
         });
 
