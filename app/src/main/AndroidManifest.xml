@@ -21,6 +21,8 @@
         <activity android:name=".PhoneActivity"></activity>
         <activity android:name=".BioActivity"></activity>
         <activity android:name=".PhotoActivity"></activity>
+        <activity android:name=".TakePhotoActivity"></activity>
+        <activity android:name=".UploadActivity"></activity>
     </application>
 
 </manifest>
