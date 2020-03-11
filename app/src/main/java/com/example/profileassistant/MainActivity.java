@@ -12,8 +12,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    TextView receiverName, receiverEmail, receiverPhone;
-    SharedPreferences prf, prfEmail, prfPhone;
+    TextView receiverName, receiverEmail, receiverPhone, receiverBio;
+    SharedPreferences prf, prfEmail, prfPhone, prfBio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +71,10 @@ public class MainActivity extends AppCompatActivity {
         receiverPhone = (TextView) findViewById(R.id.M_phoneField);
         prfPhone = getSharedPreferences("phones", MODE_PRIVATE);
         receiverPhone.setText(prfPhone.getString("phoneInput", ""));
+
+        //Receive preferences from BioActivity and display
+        receiverBio = (TextView) findViewById(R.id.M_bioField);
+        prfBio = getSharedPreferences("bios", MODE_PRIVATE);
+        receiverBio.setText(prfBio.getString("bioInput", ""));
     }
 }
