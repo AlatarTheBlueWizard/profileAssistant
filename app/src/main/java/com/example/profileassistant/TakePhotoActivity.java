@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class TakePhotoActivity extends AppCompatActivity {
 
     @Override

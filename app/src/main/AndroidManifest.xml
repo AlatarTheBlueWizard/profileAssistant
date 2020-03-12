@@ -24,5 +24,4 @@
         <activity android:name=".TakePhotoActivity"></activity>
         <activity android:name=".UploadActivity"></activity>
     </application>
-
 </manifest>
