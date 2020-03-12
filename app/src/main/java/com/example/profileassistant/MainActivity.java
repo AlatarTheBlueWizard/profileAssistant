@@ -3,6 +3,7 @@ package com.example.profileassistant;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -16,7 +17,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -27,13 +30,17 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
     TextView receiverName, receiverEmail, receiverPhone, receiverBio;
-    SharedPreferences prf, prfEmail, prfPhone, prfBio;
+    SharedPreferences prf, prfEmail, prfPhone, prfBio, prefs;
     private ImageView imgView;
 
     @Override
