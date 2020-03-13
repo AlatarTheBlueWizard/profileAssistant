@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView receiverName, receiverEmail, receiverPhone, receiverBio;
     SharedPreferences prf, prfEmail, prfPhone, prfBio, prefs;
     private ImageView imgView;
+    de.hdodenhof.circleimageview.CircleImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
         receiverBio.setText(prfBio.getString("bioInput", ""));
 
         //Initialize image view
-        imgView = (ImageView) findViewById(R.id.imageView2);
+        //imgView = (ImageView) findViewById(R.id.imageView2);
+        img = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.profile_image);
 
         //Call selectImage method with edit button
         ImageButton ePhoto = (ImageButton) findViewById(R.id.M_photoEdit);
@@ -159,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     if(resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        imgView.setImageBitmap(selectedImage);
+                        //imgView.setImageBitmap(selectedImage);
+                        img.setImageBitmap(selectedImage);
                     }
                     break;
                 case 1:
@@ -201,7 +204,8 @@ public class MainActivity extends AppCompatActivity {
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize = scale;
             Bitmap bitmap = BitmapFactory.decodeFileDescriptor(imageSource, null, o2);
-            imgView.setImageBitmap(bitmap);
+            //imgView.setImageBitmap(bitmap);
+            img.setImageBitmap(bitmap);
         } catch(FileNotFoundException e) {
 
         } catch(IOException e) {
