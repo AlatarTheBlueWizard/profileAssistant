@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +16,10 @@ public class NameActivity extends AppCompatActivity {
     SharedPreferences pref;
     Intent intent;
 
+    /**
+     * Uses shared preferences to save info between this activity and the mainActivity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

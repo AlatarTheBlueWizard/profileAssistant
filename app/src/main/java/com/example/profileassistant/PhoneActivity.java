@@ -16,6 +16,10 @@ public class PhoneActivity extends AppCompatActivity {
     SharedPreferences pref;
     Intent intent;
 
+    /**
+     * Uses shared preferences to save info between this activity and the mainActivity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

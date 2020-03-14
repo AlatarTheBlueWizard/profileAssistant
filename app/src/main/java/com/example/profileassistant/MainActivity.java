@@ -3,40 +3,25 @@ package com.example.profileassistant;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
-
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.ParcelFileDescriptor;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
     TextView receiverName, receiverEmail, receiverPhone, receiverBio;
@@ -44,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgView;
     de.hdodenhof.circleimageview.CircleImageView img;
 
+    /**
+     * handles navigation between buttons, editing profile picture button, and saving the info
+     * sent from other activities.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,15 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*//Use M_photoEdit button to open PhotoActivity
-        ImageButton editPhotoButton = (ImageButton) findViewById(R.id.M_photoEdit);
-        editPhotoButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent phIntent = new Intent(arg0.getContext(), PhotoActivity.class);
-                startActivity(phIntent);
-            }
-        });*/
-
         //Receive preferences from NameActivity and display
         receiverName = (TextView) findViewById(R.id.M_nameField);
         prf = getSharedPreferences("names", MODE_PRIVATE);
@@ -128,10 +109,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
 
+    /**
+     * Uses edit button to open photo menu to select desired option such as uploading a photo or
+     * taking a photo.
+     * @param context
+     */
     private void selectImage(Context context) {
         final CharSequence[] options = {"Take Photo", "Choose from Photo Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -143,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
                 } else if(options[item].equals("Choose from Photo Gallery")) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, 1);
                 } else if(options[item].equals("Cancel")) {
                     dialog.dismiss();
@@ -153,6 +142,13 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Uses params to execute image placement or opening an image from the photo gallery if user
+     * selects that option.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -174,6 +170,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function is more manual in a sense when selecting a photo from the gallery path.
+     * It will also add the image in a specific size to the image view. Without this function the
+     * adding image functionality simply did not work.
+     * @param uri
+     */
     public void decodeUri(Uri uri) {
         ParcelFileDescriptor parcelFD = null;
         try {
